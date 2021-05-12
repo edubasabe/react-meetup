@@ -6,7 +6,7 @@ import Card from "../ui/Card";
 export default function MeetupItem(props) {
   return (
     <ListItem>
-      <Card>
+      <Card m="8" maxW="xs">
         <Box>
           <Image src={props.image} alt={props.title} />
         </Box>
@@ -18,9 +18,7 @@ export default function MeetupItem(props) {
           <Text>{props.description}</Text>
         </Box>
         <Box px="4" pb="4">
-          <Button bg="orange.400" color="white">
-            To Favorites
-          </Button>
+          <Button colorScheme="orange">To Favorites</Button>
         </Box>
       </Card>
     </ListItem>
