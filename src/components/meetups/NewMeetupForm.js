@@ -6,7 +6,7 @@ import { Flex } from "@chakra-ui/layout";
 import { Textarea } from "@chakra-ui/textarea";
 import Card from "../ui/Card";
 
-export default function NewMeetupForm() {
+export default function NewMeetupForm(props) {
   const titleInputRef = useRef();
   const imageInputRef = useRef();
   const addressInputRef = useRef();
@@ -14,12 +14,15 @@ export default function NewMeetupForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("form data!", {
+    const meetupData = {
       title: titleInputRef.current.value,
       image: imageInputRef.current.value,
       address: addressInputRef.current.value,
       description: descriptionInputRef.current.value,
-    });
+    };
+
+    console.log("form data!", meetupData);
+    props.onAddMeetup(meetupData);
   }
 
   return (
