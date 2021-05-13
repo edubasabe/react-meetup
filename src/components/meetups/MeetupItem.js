@@ -4,7 +4,8 @@ import { Box, ListItem, Heading, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import Card from "../ui/Card";
 import FavoritesContext from "../../store/favorites-context";
-
+import { HeartIcon } from "@heroicons/react/outline";
+import Icon from "@chakra-ui/icon";
 export default function MeetupItem(props) {
   const favoritesContext = useContext(FavoritesContext);
   const itemIsFavorite = favoritesContext.itemIsFavorite(props.id);
@@ -25,7 +26,7 @@ export default function MeetupItem(props) {
 
   return (
     <ListItem>
-      <Card m="8" maxW="xs">
+      <Card m="2" maxW="xs">
         <Box>
           <Image src={props.image} alt={props.title} />
         </Box>
@@ -37,8 +38,12 @@ export default function MeetupItem(props) {
           <Text>{props.description}</Text>
         </Box>
         <Box px="4" pb="4">
-          <Button onClick={toggleFavoritesStatusHandler} colorScheme="orange">
-            {itemIsFavorite ? "Remove from favorites" : "To Favorites"}
+          <Button
+            onClick={toggleFavoritesStatusHandler}
+            colorScheme={itemIsFavorite ? "gray" : "pink"}
+          >
+            {itemIsFavorite ? "Remove from favorites" : "Add to Favorites"}
+            <Icon as={HeartIcon} ml="1" />
           </Button>
         </Box>
       </Card>

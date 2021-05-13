@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { ListItem } from "@chakra-ui/layout";
+import { Badge } from "@chakra-ui/layout";
 import {
   Container,
   Flex,
@@ -7,8 +9,9 @@ import {
   UnorderedList,
 } from "@chakra-ui/layout";
 import { NavLink } from "react-router-dom";
-
+import FavoritesContext from "../../store/favorites-context";
 export default function MainNavigation() {
+  const favoritesCtx = useContext(FavoritesContext);
   return (
     <Flex bg="pink.800" p="4" as="header">
       <Container maxW="container.xl" d="flex">
@@ -46,6 +49,9 @@ export default function MainNavigation() {
                 fontWeight="bold"
               >
                 Favorites
+                <Badge ml="2" colorScheme="pink" borderRadius="md">
+                  {favoritesCtx.totalFavorites}
+                </Badge>
               </Link>
             </ListItem>
           </UnorderedList>
