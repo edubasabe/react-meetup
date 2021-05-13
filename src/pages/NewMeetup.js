@@ -1,21 +1,15 @@
 import { Heading, Container } from "@chakra-ui/layout";
+import { useHistory } from "react-router";
 import NewMeetupForm from "../components/meetups/NewMeetupForm";
 import PageHeading from "../components/ui/PageHeading";
+import { postMeetup } from "../utils/request";
 
 function NewMeetup() {
+  const history = useHistory();
   function handleNewMeetup(meetup) {
     console.log({ meetup });
-    fetch(
-      "https://react-meetup-fe77a-default-rtdb.firebaseio.com/meetups.json",
-      {
-        method: "POST",
-        body: JSON.stringify(meetup),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then((response) => {
-      console.log({ response });
+    postMeetup(meetup).then(() => {
+      history.replace("/");
     });
   }
 

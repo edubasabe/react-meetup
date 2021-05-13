@@ -1,30 +1,39 @@
+import { useState, useEffect } from "react";
+import { Text } from "@chakra-ui/layout";
 import { Heading, Container } from "@chakra-ui/layout";
 import MeetupList from "../components/meetups/MeetupList";
 import PageHeading from "../components/ui/PageHeading";
+import { getMeetups } from "../utils/request";
 
-const DUMMY_DATA = [
-  {
-    id: "m1",
-    title: "This is a first meetup",
-    image: "https://via.placeholder.com/640x480/92c952",
-    address: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-  },
-  {
-    id: "m2",
-    title: "This is the second meetup",
-    image: "https://via.placeholder.com/640x480/92c952",
-    address: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-  },
-];
 function AllMeetups() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [meetups, setMeetups] = useState([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getMeetups().then((response) => {
+      const data = Object.entries(response);
+      const meetupsList = data.map((item) => ({ id: item[0], ...item[1] }));
+
+      setMeetups(meetupsList);
+      setIsLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Container maxW="container.xl">
+        <Text mt="6">Loading...</Text>
+      </Container>
+    );
+  }
+
   return (
     <Container maxW="container.xl">
       <PageHeading>
         <Heading as="h2">All Meetups</Heading>
       </PageHeading>
-      <MeetupList meetups={DUMMY_DATA} />
+      <MeetupList meetups={meetups} />
     </Container>
   );
 }
