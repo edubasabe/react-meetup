@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
+import { FavoritesContextProvider } from "./store/favorites-context";
 
 ReactDOM.render(
   <ChakraProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <FavoritesContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </FavoritesContextProvider>
   </ChakraProvider>,
   document.getElementById("root")
 );
